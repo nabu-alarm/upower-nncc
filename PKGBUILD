@@ -1,24 +1,35 @@
-# Maintainer: Brian Bidulock <bidulock@openss7.org>
-# Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
-# Contributor: Jan de Groot <jgc@archlinux.org>
+# AUR Maintainer: Brian Bidulock <bidulock@openss7.org>
+# AUR Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# AUR Contributor: Jan de Groot <jgc@archlinux.org>
 
-pkgname=upower-git
+pkgname=upower-nncc
 _pkgname=upower
 pkgver=1.90.2.r6.g029651a
 pkgrel=1
 pkgdesc="enumerating power devices, listening to events and querying history and statistics"
 url="https://upower.freedesktop.org"
-arch=(x86_64 i686)
+arch=(aarch64)
 license=(GPL)
 depends=(libimobiledevice libgudev)
 makedepends=(docbook-xsl gobject-introspection python git gtk-doc meson)
 optdepends=('python: for integration tests'
-	    'gobject-introspection-runtime: for integration tests')
+  'gobject-introspection-runtime: for integration tests')
 backup=(etc/UPower/UPower.conf)
-source=("$pkgname::git+https://gitlab.freedesktop.org/upower/upower.git")
-md5sums=('SKIP')
+source=(
+  "$pkgname::git+https://gitlab.freedesktop.org/upower/upower.git"
+  'no-negative-current-check.patch'
+)
+md5sums=(
+  'SKIP'
+  'SKIP'
+)
 provides=("$_pkgname=${pkgver%%.r*}-${pkgrel}")
 conflicts=("$_pkgname")
+
+prepare() {
+  cd $pkgname
+  git am ../no-negative-current-check.patch
+}
 
 pkgver() {
   cd $pkgname
