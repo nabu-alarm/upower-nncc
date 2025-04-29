@@ -11,7 +11,7 @@ url="https://upower.freedesktop.org"
 arch=(aarch64)
 license=(GPL)
 depends=(libimobiledevice libgudev)
-makedepends=(docbook-xsl gobject-introspection python git gtk-doc meson)
+makedepends=(docbook-xsl gobject-introspection python git gtk-doc meson glib2-devel polkit)
 optdepends=('python: for integration tests'
   'gobject-introspection-runtime: for integration tests')
 backup=(etc/UPower/UPower.conf)
